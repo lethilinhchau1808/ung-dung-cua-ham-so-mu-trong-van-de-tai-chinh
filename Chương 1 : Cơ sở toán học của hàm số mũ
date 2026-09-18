@@ -1,1 +1,167 @@
+\documentclass[12pt,a4paper]{article}
 
+% --- CẤU HÌNH TIẾNG VIỆT & FONT CHỮ ---
+% Nếu dùng XeLaTeX / LuaLaTeX (Khuyên dùng để tránh lỗi font):
+\usepackage{fontspec}
+\setmainfont{Times New Roman} 
+
+% Nếu bạn biên dịch bằng pdfLaTeX truyền thống, hãy dùng các dòng bên dưới:
+% \usepackage[utf8]{vietnam}
+% \usepackage[T1]{fontenc}
+
+% --- TOÁN HỌC & ĐỊNH DẠNG TRANG ---
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2cm
+}
+
+% --- CẤU HÌNH KÍCH THƯỚC GIỮA CÁC DÒNG VÀ ĐOẠN ---
+\usepackage{setspace}
+\onehalfspacing             % Giãn dòng 1.5 cho dễ đọc
+\setlength{\parskip}{6pt}   % Khoảng cách giữa các đoạn văn
+\setlength{\parindent}{0pt} % Không thụt đầu dòng
+
+\title{\Large\bfseries CHƯƠNG 1: CƠ SỞ LÝ THUYẾT HÀM SỐ MŨ}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Lý thuyết tổng quan về lũy thừa}
+
+Tại sao ôn tập về lý thuyết hàm số mũ ta phải học lại từ lũy thừa? Bởi vì, bản chất của hàm số mũ lấy gốc từ lũy thừa. Hay nói cách khác, hàm số mũ thuộc phạm trù của lũy thừa (lũy thừa phát triển được thành 2 dạng hàm số đó là hàm số lũy thừa và hàm số mũ). Do vậy, các tính chất, công thức biến đổi và điều kiện của hàm số mũ đều lấy gốc từ lũy thừa. Khi ta nắm vững kiến thức về lũy thừa, việc ôn tập lý thuyết hàm số mũ sẽ trở nên rất dễ dàng và nhanh hơn rất nhiều.
+
+\subsection{Định nghĩa về lũy thừa}
+
+Lũy thừa (nghĩa là "nhân chồng chất lên") là một phép toán được viết dưới dạng $a^n$, bao gồm hai số, cơ số $a$ và số mũ hoặc lũy thừa $n$, và được phát âm là "$a$ lũy thừa $n$". Khi $n$ là một số nguyên dương, lũy thừa tương ứng với phép nhân lặp của cơ số (thừa số), nghĩa là $a^n$ là tích của phép nhân $n$ cơ số:
+\[
+a^n = \underbrace{a \cdot a \cdot \dots \cdot a}_{n \text{ thừa số } a}
+\]
+
+\textbf{Chú ý:}
+\begin{itemize}
+    \item Ta có $a^1 = a$.
+    \item Với mọi số nguyên dương $m$ và $n$, ta có $a^m \cdot a^n = a^{m+n}$.
+    \item Để mở rộng thuộc tính này thành số mũ nguyên không dương, ta có: $a^{-n} = \dfrac{1}{a^n}$, với $n$ là số nguyên dương và $a \neq 0$.
+    \item Đặc biệt: $a^{-1} = \dfrac{1}{a}$ (nghịch đảo của $a$).
+\end{itemize}
+
+\subsection{Tính chất của lũy thừa có liên quan đến biến đổi hàm số mũ}
+
+Các tính chất của lũy thừa có liên quan trực tiếp đến lý thuyết hàm số mũ, đặc biệt là trong quá trình biến đổi, tính toán.
+
+\paragraph{Tính chất về đẳng thức:} Cho $a, b > 0$ và $m, n \in \mathbb{R}$:
+\begin{itemize}
+    \item $a^m \cdot a^n = a^{m+n}$
+    \item $\dfrac{a^m}{a^n} = a^{m-n}$
+    \item $(a^m)^n = a^{m \cdot n}$
+    \item $(a \cdot b)^n = a^n \cdot b^n$
+    \item $\left(\dfrac{a}{b}\right)^n = \dfrac{a^n}{b^n}$
+\end{itemize}
+
+\paragraph{Tính chất về bất đẳng thức:}
+\begin{itemize}
+    \item \textbf{So sánh cùng cơ số:} Cho $m, n \in \mathbb{R}$.
+    \begin{itemize}
+        \item Trường hợp 1: Với $a > 1$ thì $a^m > a^n \iff m > n$.
+        \item Trường hợp 2: Với $0 < a < 1$ thì $a^m > a^n \iff m < n$.
+    \end{itemize}
+    \item \textbf{So sánh cùng số mũ:}
+    \begin{itemize}
+        \item Trường hợp 1: Với số mũ dương $n > 0$: $a > b > 0 \implies a^n > b^n$.
+        \item Trường hợp 2: Với số mũ âm $n < 0$: $a > b > 0 \implies a^n < b^n$.
+    \end{itemize}
+\end{itemize}
+
+\section{Lý thuyết hàm số mũ}
+
+\subsection{Định nghĩa và điều kiện của hàm số mũ}
+
+Mở đầu về lý thuyết hàm số mũ, ta cần tìm hiểu về định nghĩa cơ bản đầu tiên. Hiểu đơn giản, hàm số mũ là hàm số mà trong đó có chứa biểu thức mũ.
+
+Theo kiến thức THPT đã được học, định nghĩa của hàm số mũ theo công thức tổng quát có dạng: Hàm số $y = f(x) = a^x$, với $a$ là số thực dương khác 1 ($a > 0, a \neq 1$) được gọi là hàm số mũ với cơ số $a$.
+
+Một số ví dụ về hàm số mũ: $y = 2^x$, $y = \left(\dfrac{1}{3}\right)^x$, $y = e^x$,\dots
+
+\subsection{Tính chất}
+
+Xét hàm số $y = a^x$ (với $a > 0, a \neq 1$):
+\begin{itemize}
+    \item \textbf{Tập xác định:} $D = \mathbb{R}$.
+    \item \textbf{Đạo hàm:} $y' = (a^x)' = a^x \ln a$. Tổng quát với hàm hợp: $(a^u)' = u' \cdot a^u \ln a$.
+    \item \textbf{Chiều biến thiên:}
+    \begin{itemize}
+        \item $a > 1$: Hàm số luôn đồng biến trên $\mathbb{R}$.
+        \item $0 < a < 1$: Hàm số luôn nghịch biến trên $\mathbb{R}$.
+    \end{itemize}
+    \item \textbf{Tiệm cận:} Trục $Ox$ (đường thẳng $y = 0$) là tiệm cận ngang.
+    \item \textbf{Đồ thị:} Đi qua các điểm $(0; 1)$ và $(1; a)$, nằm phía trên trục hoành ($y = a^x > 0, \forall x \in \mathbb{R}$).
+\end{itemize}
+
+\subsection{Khảo sát và vẽ đồ thị hàm số mũ}
+
+Về tổng quát, hàm số mũ được khảo sát như sau:
+\begin{itemize}
+    \item \textbf{Tập xác định:} $D = \mathbb{R}$.
+    \item \textbf{Chiều biến thiên:}
+    \begin{itemize}
+        \item Nếu $a > 1$ thì hàm số đồng biến trên $\mathbb{R}$.
+        \item Nếu $0 < a < 1$ thì hàm số nghịch biến trên $\mathbb{R}$.
+    \end{itemize}
+    \item \textbf{Đồ thị:}
+    \begin{itemize}
+        \item Có tiệm cận ngang $y = 0$.
+        \item Luôn đi qua các điểm $(0; 1)$ và $(1; a)$.
+        \item Nằm hoàn toàn phía trên trục hoành vì $a^x > 0$ với mọi $x \in \mathbb{R}$.
+    \end{itemize}
+\end{itemize}
+
+\section{Một số dạng bài tập hàm số mũ cơ bản}
+
+\paragraph{Dạng 1: Tìm hàm số có đồ thị cho trước và ngược lại}
+\begin{itemize}
+    \item \textbf{Bước 1:} Quan sát dáng đồ thị, tính đơn điệu của đồ thị (đồng biến hay nghịch biến).
+    \item \textbf{Bước 2:} Đối chiếu với các hàm số đề bài cho và chọn kết luận phù hợp.
+\end{itemize}
+
+\paragraph{Dạng 2: Tìm mối quan hệ giữa các cơ số khi biết đồ thị}
+\begin{itemize}
+    \item \textbf{Bước 1:} Nhận xét tính đơn điệu: đồng biến ($a > 1$), nghịch biến ($0 < a < 1$).
+    \item \textbf{Bước 2:} So sánh các cơ số dựa vào đồ thị (ví dụ: kẻ đường thẳng $x = 1$ cắt các đồ thị để so sánh giá trị $y = a^1 = a$).
+    \item \textbf{Bước 3:} Kết hợp điều kiện để tìm mối quan hệ thứ tự giữa các cơ số.
+\end{itemize}
+
+\paragraph{Dạng 3: Tính đạo hàm các hàm số}
+\begin{itemize}
+    \item \textbf{Bước 1:} Áp dụng công thức đạo hàm tổng, hiệu, tích, thương: 
+    \[
+    (u \pm v)' = u' \pm v'; \quad (uv)' = u'v + uv'; \quad \left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}
+    \]
+    \item \textbf{Bước 2:} Tính đạo hàm các hàm số thành phần (hàm cơ bản $(a^x)' = a^x \ln a$, hàm hợp $(a^u)' = u' \cdot a^u \ln a$).
+    \item \textbf{Bước 3:} Rút gọn, tính toán và kết luận.
+\end{itemize}
+
+\paragraph{Dạng 4: Tính giới hạn các hàm số}
+Áp dụng các giới hạn đặc biệt:
+\begin{itemize}
+    \item $\lim_{x \to 0} \dfrac{e^x - 1}{x} = 1$
+    \item $\lim_{x \to 0} \dfrac{a^x - 1}{x} = \ln a$
+    \item $\lim_{x \to \infty} \left(1 + \dfrac{1}{x}\right)^x = e$
+    \item $\lim_{x \to 0} (1 + x)^{\frac{1}{x}} = e$
+\end{itemize}
+
+\paragraph{Dạng 5: Tìm GTLN, GTNN của hàm số mũ trên một đoạn $[a; b]$}
+\begin{itemize}
+    \item \textbf{Bước 1:} Tính $y'$, tìm các nghiệm $x_i \in [a; b]$ của phương trình $y' = 0$ (hoặc các điểm làm $y'$ không xác định).
+    \item \textbf{Bước 2:} Tính các giá trị $f(a)$, $f(b)$ và $f(x_i)$.
+    \item \textbf{Bước 3:} So sánh các giá trị tính được ở Bước 2 để tìm giá trị nhỏ nhất $m = \min_{[a;b]} f(x)$ và giá trị lớn nhất $M = \max_{[a;b]} f(x)$.
+\end{itemize}
+
+\end{document}
