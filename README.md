@@ -54,3 +54,21 @@ Khi đưa lên GitHub, các file trong dự án của bạn sẽ được quản
 └── assets/                 # Thư mục chứa hình ảnh, sơ đồ, đồ thị minh họa
     └── charts.png          # Đồ thị so sánh tăng trưởng tài sản
 ```
+## 📚 5. Tài liệu Tham khảo
+
+### Sách giáo khoa toán 
+* Đỗ Đức Thái (chủ biên), *Chuyên đề học tập toán 12*, Cánh Diều, Chuyên đề : Ứng dụng toán học trong một số vấn đề liên quan đến tài chính.
+* Nguyễn Huy Đoan (Chủ biên), *Giải tích 12 nâng cao*, Nhà xuất bản Giáo dục Việt Nam. (Chương II: Hàm số lũy thừa, Hàm số mũ và Hàm số lôgarit).
+* Trần Văn Hạo (Chủ biên), *Đại số và Giải tích 11*, Nhà xuất bản Giáo dục Việt Nam. (Phần cấp số nhân và giới hạn vô cực).
+
+### Tài liệu Tài chính & Toán Kinh tế
+* Nguyễn Văn Ngọc, *Giáo trình Lý thuyết Tài chính Tiền tệ*, Nhà xuất bản Đại học Kinh tế Quốc dân.
+* Vũ Duy Vĩnh, *Toán kinh tế và các mô hình ứng dụng*, Nhà xuất bản Thống kê. (Chương phân tích giá trị dòng tiền và lãi suất gộp liên tục).
+* Brealey, R. A., Myers, S. C., & Allen, F., *Principles of Corporate Finance*, McGraw-Hill Education. (Phần phân tích Time Value of Money - Giá trị thời gian của tiền).
+
+### Nguồn Thống kê trực tuyến (Số liệu thực tế)
+* Tổng cục Thống kê Việt Nam (GSO) - Tra cứu chỉ số giá tiêu dùng (CPI) để tính toán tỷ lệ lạm phát thực tế qua các năm.
+* Cổng thông tin Ngân hàng Nhà nước Việt Nam (SBV) - Tham chiếu biểu đồ lãi suất huy động và lãi suất cho vay trần của các tổ chức tín dụng.
+
+---
+
