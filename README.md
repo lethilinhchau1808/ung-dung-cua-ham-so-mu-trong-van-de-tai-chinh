@@ -23,9 +23,9 @@ Dự án **"Ứng dụng của hàm số mũ trong vấn đề tài chính"** l�
 ## 🗂 2. Cấu trúc nội dung dự án
 Dự án được kết cấu thành **4 phần chính** logic từ lý thuyết đến thực tiễn:
 
-* **Phần I: Cơ sở toán học của hàm số mũ:** Định nghĩa hàm số \(y = a^x\), tính chất biến thiên, đạo hàm tốc độ tăng trưởng tức thời (\(e^x\)), so sánh tăng trưởng tuyến tính và tăng trưởng mũ.
-* * **Phần II: Bài toán tăng trưởng tài sản (tích lũy):** Công thức lãi kép rời rạc định kỳ, mô hình lãi kép liên tục (\(A = P \cdot e^{rt}\)), tính Giá trị tương lai (FV) của dòng tiền đầu tư.
-* **Phần III: Bài toán suy giảm tài sản (lạm phát & khấu hao):** Mô hình hàm số mũ suy giảm \(y = a(1-r)^x\), đo lường sức mua hao hụt do lạm phát và tính khấu hao tài sản cố định.
+* **Phần I: Cơ sở toán học của hàm số mũ:** Định nghĩa hàm số $y=a^x$, tính chất biến thiên, đạo hàm tốc độ tăng trưởng tức thời ($e^x$), so sánh tăng trưởng tuyến tính và tăng trưởng mũ.
+* **Phần II: Bài toán tăng trưởng tài sản (tích lũy):** Công thức lãi kép rời rạc định kỳ, mô hình lãi kép liên tục ($A = P \cdot e^{rt}$), tính Giá trị tương lai (FV) của dòng tiền đầu tư.
+* **Phần III: Bài toán suy giảm tài sản (lạm phát & khấu hao):** Mô hình hàm số mũ suy giảm ($y = a(1-r)^x$), đo lường sức mua hao hụt do lạm phát và tính khấu hao tài sản cố định.
 * **Phần IV: Mô hình hóa thực tế & công cụ trực quan:** Xây dựng kịch bản giả định (gửi tiết kiệm vs vay nợ), vẽ đồ thị minh họa điểm "bùng nổ" tài sản và đưa ra khuyến nghị thực tế.
 
 ---
