@@ -38,23 +38,7 @@ Dự án được triển khai cuốn chiếu trong vòng 14 ngày với các m�
 ### 📅 Tuần 2: Mô hình hóa, trực quan & toàn thiện báo cáo
 
 ---
-
-## 🛠 4. Cấu trúc Thư mục Dự án (Repository Structure)
-
-Khi đưa lên GitHub, các file trong dự án của bạn sẽ được quản lý ngăn nắp theo cấu trúc sau:
-
-```text
-├── README.md               # File giới thiệu tổng quan dự án (File này)
-├── docs/                   # Thư mục chứa tài liệu báo cáo chi tiết
-│   ├── chuong1_co_so.md    # Chi tiết cơ sở toán học
-│   └── chuong2_3_4.md      # Chi tiết các bài toán ứng dụng
-├── src/                    # Thư mục chứa công cụ tính toán (nếu có)
-│   ├── financial_calc.py   # Code Python tính toán và vẽ đồ thị
-│   └── calculator.xlsx     # File Excel tính lãi kép & lạm phát tự động
-└── assets/                 # Thư mục chứa hình ảnh, sơ đồ, đồ thị minh họa
-    └── charts.png          # Đồ thị so sánh tăng trưởng tài sản
-```
-## 📚 5. Tài liệu Tham khảo
+## 📚 4. Tài liệu Tham khảo
 
 ### Sách giáo khoa toán 
 * Đỗ Đức Thái (chủ biên), *Chuyên đề học tập toán 12*, Cánh Diều, Chuyên đề : Ứng dụng toán học trong một số vấn đề liên quan đến tài chính.
