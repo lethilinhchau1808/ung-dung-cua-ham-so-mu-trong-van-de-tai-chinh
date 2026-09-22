@@ -1,97 +1,137 @@
-\documentclass[12pt,a4paper]{article}
+documentclass[12pt,a4paper]{report}
 
-% --- CẤU HÌNH TIẾNG VIỆT & FONT CHỮ ---
-% Nếu dùng XeLaTeX / LuaLaTeX (Khuyên dùng để tránh lỗi font):
-\usepackage{fontspec}
-\setmainfont{Times New Roman} 
+% ==================== XỬ LÝ FONT TIẾNG VIỆT ====================
+\usepackage{iftex}
+\ifXeTeX
+    \usepackage{fontspec}
+    \setmainfont{Times New Roman}
+\else\ifLuaTeX
+    \usepackage{fontspec}
+    \setmainfont{Times New Roman}
+\else
+    \usepackage[utf8]{vietnam}
+    \usepackage{times}
+\fi\fi
 
-% Nếu bạn biên dịch bằng pdfLaTeX truyền thống, hãy dùng các dòng bên dưới:
-% \usepackage[utf8]{vietnam}
-% \usepackage[T1]{fontenc}
-
-% --- TOÁN HỌC & ĐỊNH DẠNG TRANG ---
-\usepackage{amsmath,amssymb,amsfonts}
+% ==================== CÁC GÓI THƯ VIỆN ====================
+\usepackage{amsmath,amssymb,amsfonts,amsthm}
+\usepackage{graphicx}
 \usepackage{geometry}
-\geometry{
-    a4paper,
-    top=2.5cm,
-    bottom=2.5cm,
-    left=2.5cm,
-    right=2cm
+\geometry{a4paper, margin=2.5cm}
+\usepackage{indentfirst}
+\setlength{\parindent}{0.5cm}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Dự án Ứng dụng hàm số mũ trong một số vấn đề tài chính},
 }
-
-% --- CẤU HÌNH KÍCH THƯỚC GIỮA CÁC DÒNG VÀ ĐOẠN ---
-\usepackage{setspace}
-\onehalfspacing             % Giãn dòng 1.5 cho dễ đọc
-\setlength{\parskip}{6pt}   % Khoảng cách giữa các đoạn văn
-\setlength{\parindent}{0pt} % Không thụt đầu dòng
-
-\title{\Large\bfseries CHƯƠNG 1: CƠ SỞ LÝ THUYẾT HÀM SỐ MŨ}
-\author{}
-\date{}
 
 \begin{document}
 
-\maketitle
+% ==================== TRANG BÌA ====================
+\begin{titlepage}
+    \centering
+    \textbf{\Large TRƯỜNG ĐẠI HỌC SƯ PHẠM – ĐẠI HỌC HUẾ}\\[0.5cm]
+    \textbf{\Huge DỰ ÁN}\\[0.5cm]
+    \textbf{\Large ỨNG DỤNG HÀM SỐ MŨ TRONG MỘT SỐ VẤN ĐỀ TÀI CHÍNH}\\[2cm]
+    
+    \begin{flushleft}
+        \Large
+        \textbf{BỘ MÔN:} Tích hợp CNTT trong dạy học toán\\[0.3cm]
+        \textbf{GV hướng dẫn:} Nguyễn Đăng Minh Phúc\\[0.3cm]
+        \textbf{Họ và tên sv:} Lê Thị Linh Châu\\[0.3cm]
+        \textbf{Mã sv:} 22S1010011
+    \end{flushleft}
+\end{titlepage}
+
+% ==================== MỤC LỤC ====================
+\tableofcontents
+\clearpage
+
+% ==================== LỜI NÓI ĐẦU ====================
+\chapter*{Lời nói đầu}
+\addcontentsline{toc}{chapter}{Lời nói đầu}
+
+Dự án \textbf{"Ứng dụng của hàm số mũ trong vấn đề tài chính"} là một nghiên cứu hệ thống nhằm kết nối kiến thức toán học thuần túy (hàm số mũ) với các bài toán kinh tế - tài chính thực tế, giúp cấu trúc lại tư duy tài chính cá nhân và quản trị rủi ro một cách khoa học. Dự án giải thích cơ chế vận hành của dòng tiền, tốc độ tăng trưởng tài sản cũng như sự suy giảm giá trị tiền tệ theo thời gian.
+
+\paragraph{Lí do chọn dự án:}
+\begin{itemize}
+    \item \textbf{Khoảng cách giữa lý thuyết và thực tiễn:} Trong chương trình phổ thông, hàm số mũ thường được tiếp cận qua các công thức và phương trình khô khan, khiến người học khó hình dung tính ứng dụng thực tế.
+    \item \textbf{Tầm quan trọng của tư duy tài chính:} Các hiện tượng như lãi kép, lạm phát, hay khấu hao tài sản đều vận hành dựa trên bản chất của hàm số mũ. Việc không hiểu rõ mô hình này có thể dẫn đến các quyết định đầu tư sai lầm hoặc rơi vào bẫy nợ nần.
+    \item \textbf{Lợi ích lâu dài:} Hiểu được sự tăng trưởng theo cấp số nhân giúp cá nhân và tổ chức lập kế hoạch tích lũy, đầu tư và quản trị rủi ro một cách khoa học.
+\end{itemize}
+
+\paragraph{Mục tiêu dự án:}
+\begin{itemize}
+    \item Hệ thống hóa cơ sở toán học của hàm số mũ liên quan đến các mô hình kinh tế.
+    \item Ứng dụng toán học để giải quyết 3 bài toán lớn: Tích lũy tài sản (Lãi kép), Suy giảm tài sản (Lạm phát/Khấu hao), và Định giá dòng tiền.
+    \item Trực quan hóa dữ liệu bằng biểu đồ để so sánh sự khác biệt giữa tăng trưởng tuyến tính và tăng trưởng hàm mũ.
+\end{itemize}
+
+% ==================== CHƯƠNG 1 ====================
+\chapter{CƠ SỞ LÍ THUYẾT HÀM SỐ MŨ}
 
 \section{Lý thuyết tổng quan về lũy thừa}
 
 Tại sao ôn tập về lý thuyết hàm số mũ ta phải học lại từ lũy thừa? Bởi vì, bản chất của hàm số mũ lấy gốc từ lũy thừa. Hay nói cách khác, hàm số mũ thuộc phạm trù của lũy thừa (lũy thừa phát triển được thành 2 dạng hàm số đó là hàm số lũy thừa và hàm số mũ). Do vậy, các tính chất, công thức biến đổi và điều kiện của hàm số mũ đều lấy gốc từ lũy thừa. Khi ta nắm vững kiến thức về lũy thừa, việc ôn tập lý thuyết hàm số mũ sẽ trở nên rất dễ dàng và nhanh hơn rất nhiều.
 
 \subsection{Định nghĩa về lũy thừa}
-
 Lũy thừa (nghĩa là "nhân chồng chất lên") là một phép toán được viết dưới dạng $a^n$, bao gồm hai số, cơ số $a$ và số mũ hoặc lũy thừa $n$, và được phát âm là "$a$ lũy thừa $n$". Khi $n$ là một số nguyên dương, lũy thừa tương ứng với phép nhân lặp của cơ số (thừa số), nghĩa là $a^n$ là tích của phép nhân $n$ cơ số:
 \[
 a^n = \underbrace{a \cdot a \cdot \dots \cdot a}_{n \text{ thừa số } a}
 \]
 
-\textbf{Chú ý:}
+\paragraph{Chú ý:}
 \begin{itemize}
     \item Ta có $a^1 = a$.
     \item Với mọi số nguyên dương $m$ và $n$, ta có $a^m \cdot a^n = a^{m+n}$.
-    \item Để mở rộng thuộc tính này thành số mũ nguyên không dương, ta có: $a^{-n} = \dfrac{1}{a^n}$, với $n$ là số nguyên dương và $a \neq 0$.
-    \item Đặc biệt: $a^{-1} = \dfrac{1}{a}$ (nghịch đảo của $a$).
+    \item Để mở rộng thuộc tính này thành số mũ nguyên không dương, ta có: $a^{-n} = 1 / a^n$, với $n$ là số nguyên dương và $a \neq 0$.
+    \item Đặc biệt: $a^{-1} = 1 / a$ (nghịch đảo của $a$).
 \end{itemize}
 
 \subsection{Tính chất của lũy thừa có liên quan đến biến đổi hàm số mũ}
-
 Các tính chất của lũy thừa có liên quan trực tiếp đến lý thuyết hàm số mũ, đặc biệt là trong quá trình biến đổi, tính toán.
 
 \paragraph{Tính chất về đẳng thức:} Cho $a, b > 0$ và $m, n \in \mathbb{R}$:
 \begin{itemize}
     \item $a^m \cdot a^n = a^{m+n}$
-    \item $\dfrac{a^m}{a^n} = a^{m-n}$
+    \item $a^m / a^n = a^{m-n}$
     \item $(a^m)^n = a^{m \cdot n}$
     \item $(a \cdot b)^n = a^n \cdot b^n$
-    \item $\left(\dfrac{a}{b}\right)^n = \dfrac{a^n}{b^n}$
+    \item $(a / b)^n = a^n / b^n$
 \end{itemize}
 
 \paragraph{Tính chất về bất đẳng thức:}
 \begin{itemize}
-    \item \textbf{So sánh cùng cơ số:} Cho $m, n \in \mathbb{R}$.
+    \item \textbf{So sánh cùng cơ số:} Cho $m, n \in \mathbb{R}$:
     \begin{itemize}
         \item Trường hợp 1: Với $a > 1$ thì $a^m > a^n \iff m > n$.
         \item Trường hợp 2: Với $0 < a < 1$ thì $a^m > a^n \iff m < n$.
     \end{itemize}
     \item \textbf{So sánh cùng số mũ:}
     \begin{itemize}
-        \item Trường hợp 1: Với số mũ dương $n > 0$: $a > b > 0 \implies a^n > b^n$.
-        \item Trường hợp 2: Với số mũ âm $n < 0$: $a > b > 0 \implies a^n < b^n$.
+        \item Trường hợp 1: Với số mũ dương $n > 0$: $a > b > 0 \Rightarrow a^n > b^n$.
+        \item Trường hợp 2: Với số mũ âm $n < 0$: $a > b > 0 \Rightarrow a^n < b^n$.
     \end{itemize}
 \end{itemize}
 
 \section{Lý thuyết hàm số mũ}
 
 \subsection{Định nghĩa và điều kiện của hàm số mũ}
-
 Mở đầu về lý thuyết hàm số mũ, ta cần tìm hiểu về định nghĩa cơ bản đầu tiên. Hiểu đơn giản, hàm số mũ là hàm số mà trong đó có chứa biểu thức mũ.
 
 Theo kiến thức THPT đã được học, định nghĩa của hàm số mũ theo công thức tổng quát có dạng: Hàm số $y = f(x) = a^x$, với $a$ là số thực dương khác 1 ($a > 0, a \neq 1$) được gọi là hàm số mũ với cơ số $a$.
 
-Một số ví dụ về hàm số mũ: $y = 2^x$, $y = \left(\dfrac{1}{3}\right)^x$, $y = e^x$,\dots
+\textit{Một số ví dụ về hàm số mũ:} $y = 2^x$, $y = (1/3)^x$, $y = e^x, \dots$
 
 \subsection{Tính chất}
-
 Xét hàm số $y = a^x$ (với $a > 0, a \neq 1$):
 \begin{itemize}
     \item \textbf{Tập xác định:} $D = \mathbb{R}$.
@@ -106,16 +146,15 @@ Xét hàm số $y = a^x$ (với $a > 0, a \neq 1$):
 \end{itemize}
 
 \subsection{Khảo sát và vẽ đồ thị hàm số mũ}
-
 Về tổng quát, hàm số mũ được khảo sát như sau:
 \begin{itemize}
-    \item \textbf{Tập xác định:} $D = \mathbb{R}$.
-    \item \textbf{Chiều biến thiên:}
+    \item Tập xác định: $D = \mathbb{R}$.
+    \item Chiều biến thiên:
     \begin{itemize}
         \item Nếu $a > 1$ thì hàm số đồng biến trên $\mathbb{R}$.
         \item Nếu $0 < a < 1$ thì hàm số nghịch biến trên $\mathbb{R}$.
     \end{itemize}
-    \item \textbf{Đồ thị:}
+    \item Đồ thị:
     \begin{itemize}
         \item Có tiệm cận ngang $y = 0$.
         \item Luôn đi qua các điểm $(0; 1)$ và $(1; a)$.
@@ -123,45 +162,510 @@ Về tổng quát, hàm số mũ được khảo sát như sau:
     \end{itemize}
 \end{itemize}
 
-\section{Một số dạng bài tập hàm số mũ cơ bản}
+\subsection{Một số dạng bài tập hàm số mũ cơ bản}
 
 \paragraph{Dạng 1: Tìm hàm số có đồ thị cho trước và ngược lại}
 \begin{itemize}
-    \item \textbf{Bước 1:} Quan sát dáng đồ thị, tính đơn điệu của đồ thị (đồng biến hay nghịch biến).
-    \item \textbf{Bước 2:} Đối chiếu với các hàm số đề bài cho và chọn kết luận phù hợp.
+    \item Bước 1: Quan sát dáng đồ thị, tính đơn điệu của đồ thị (đồng biến hay nghịch biến).
+    \item Bước 2: Đối chiếu với các hàm số đề bài cho và chọn kết luận phù hợp.
 \end{itemize}
 
 \paragraph{Dạng 2: Tìm mối quan hệ giữa các cơ số khi biết đồ thị}
 \begin{itemize}
-    \item \textbf{Bước 1:} Nhận xét tính đơn điệu: đồng biến ($a > 1$), nghịch biến ($0 < a < 1$).
-    \item \textbf{Bước 2:} So sánh các cơ số dựa vào đồ thị (ví dụ: kẻ đường thẳng $x = 1$ cắt các đồ thị để so sánh giá trị $y = a^1 = a$).
-    \item \textbf{Bước 3:} Kết hợp điều kiện để tìm mối quan hệ thứ tự giữa các cơ số.
+    \item Bước 1: Nhận xét tính đơn điệu: đồng biến ($a > 1$), nghịch biến ($0 < a < 1$).
+    \item Bước 2: So sánh các cơ số dựa vào đồ thị (ví dụ: kẻ đường thẳng $x = 1$ cắt các đồ thị để so sánh giá trị $y = a^1 = a$).
+    \item Bước 3: Kết hợp điều kiện để tìm mối quan hệ thứ tự giữa các cơ số.
 \end{itemize}
 
 \paragraph{Dạng 3: Tính đạo hàm các hàm số}
 \begin{itemize}
-    \item \textbf{Bước 1:} Áp dụng công thức đạo hàm tổng, hiệu, tích, thương: 
+    \item Bước 1: Áp dụng công thức đạo hàm tổng, hiệu, tích, thương:
     \[
-    (u \pm v)' = u' \pm v'; \quad (uv)' = u'v + uv'; \quad \left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^2}
+    (u \pm v)' = u' \pm v'; \quad (uv)' = u'v + uv'; \quad (u/v)' = (u'v - uv') / v^2
     \]
-    \item \textbf{Bước 2:} Tính đạo hàm các hàm số thành phần (hàm cơ bản $(a^x)' = a^x \ln a$, hàm hợp $(a^u)' = u' \cdot a^u \ln a$).
-    \item \textbf{Bước 3:} Rút gọn, tính toán và kết luận.
+    \item Bước 2: Tính đạo hàm các hàm số thành phần (hàm cơ bản $(a^x)' = a^x \ln a$, hàm hợp $(a^u)' = u' \cdot a^u \ln a$).
+    \item Bước 3: Rút gọn, tính toán và kết luận.
 \end{itemize}
 
 \paragraph{Dạng 4: Tính giới hạn các hàm số}
 Áp dụng các giới hạn đặc biệt:
 \begin{itemize}
-    \item $\lim_{x \to 0} \dfrac{e^x - 1}{x} = 1$
-    \item $\lim_{x \to 0} \dfrac{a^x - 1}{x} = \ln a$
-    \item $\lim_{x \to \infty} \left(1 + \dfrac{1}{x}\right)^x = e$
-    \item $\lim_{x \to 0} (1 + x)^{\frac{1}{x}} = e$
+    \item $\lim_{x \to 0} \frac{e^x - 1}{x} = 1$
+    \item $\lim_{x \to 0} \frac{a^x - 1}{x} = \ln a$
+    \item $\lim_{x \to \infty} \left(1 + \frac{1}{x}\right)^x = e$
+    \item $\lim_{x \to 0} (1 + x)^{1/x} = e$
 \end{itemize}
 
 \paragraph{Dạng 5: Tìm GTLN, GTNN của hàm số mũ trên một đoạn $[a; b]$}
 \begin{itemize}
-    \item \textbf{Bước 1:} Tính $y'$, tìm các nghiệm $x_i \in [a; b]$ của phương trình $y' = 0$ (hoặc các điểm làm $y'$ không xác định).
-    \item \textbf{Bước 2:} Tính các giá trị $f(a)$, $f(b)$ và $f(x_i)$.
-    \item \textbf{Bước 3:} So sánh các giá trị tính được ở Bước 2 để tìm giá trị nhỏ nhất $m = \min_{[a;b]} f(x)$ và giá trị lớn nhất $M = \max_{[a;b]} f(x)$.
+    \item Bước 1: Tính $y'$, tìm các nghiệm $x_i \in [a; b]$ của phương trình $y' = 0$ (hoặc các điểm làm $y'$ không xác định).
+    \item Bước 2: Tính các giá trị $f(a), f(b)$ và $f(x_i)$.
+    \item Bước 3: So sánh các giá trị tính được ở Bước 2 để tìm giá trị nhỏ nhất $m = \min_{[a;b]} f(x)$ và giá trị lớn nhất $M = \max_{[a;b]} f(x)$.
 \end{itemize}
+
+% ==================== CHƯƠNG 2 ====================
+\chapter{ỨNG DỤNG CỦA HÀM SỐ MŨ TRONG MỘT SỐ VẤN ĐỀ TÀI CHÍNH}
+
+\begin{itemize}
+    \item Tài chính là hệ thống các quan hệ kinh tế phát sinh trong quá trình phân phối các nguồn của cải xã hội dưới hình thức giá trị. Quá trình này gắn liền với việc hình thành và sử dụng các quỹ tiền tệ nhằm đáp ứng nhu cầu tích lũy hoặc tiêu dùng của các chủ thể trong nền kinh tế. Nói một cách đơn giản, tài chính không chỉ là "tiền", mà là cách thức quản lý, dịch chuyển và sinh sôi của tiền qua thời gian.
+    \item Tài chính vận hành dựa trên 3 phân nhánh lớn, mỗi nhánh có mục tiêu và phương thức quản trị riêng biệt:
+    \begin{itemize}
+        \item \textbf{Tài chính công (Public Finance):} Các hoạt động thu, chi ngân sách của Nhà nước. Nhánh này nhằm thực hiện các chức năng quản lý vĩ mô, cung cấp dịch vụ công (y tế, giáo dục, hạ tầng) và điều tiết nền kinh tế.
+        \item \textbf{Tài chính doanh nghiệp (Corporate Finance):} Quá trình huy động, quản lý và sử dụng vốn của các tổ chức kinh doanh. Mục tiêu cốt lõi là tối đa hóa giá trị doanh nghiệp, tối ưu hóa chi phí vốn và phân phối lợi nhuận cho cổ đông.
+        \item \textbf{Tài chính cá nhân (Personal Finance):} Cách thức một cá nhân hoặc hộ gia đình quản lý ngân sách thu chi, tiết kiệm, bảo hiểm và đầu tư định kỳ. Mục tiêu tối cao là đảm bảo an toàn tài chính và đạt được các cột mốc mục tiêu trong cuộc sống (ví dụ: mua nhà, hưu trí).
+    \end{itemize}
+\end{itemize}
+
+\section{Tăng trưởng tài sản (tích sản)}
+
+\begin{itemize}
+    \item \textbf{Tích sản (Accumulation)} là chiến lược đầu tư dài hạn bằng cách đều đặn mua vào các tài sản chất lượng (cổ phiếu, chứng chỉ quỹ, vàng, bất động sản) trong một thời gian dài. Trọng tâm của tích sản là tận dụng sức mạnh lũy thừa của lãi kép kết hợp với kỹ thuật trung bình giá (DCA) để giảm thiểu rủi ro biến động thị trường.
+    \item \textbf{Mô hình Tăng trưởng Tài sản khi Tích sản:}
+    Để hiểu rõ cách tài sản tăng trưởng theo hàm lũy thừa trong quá trình tích sản, chúng ta chia dòng tiền thành hai phần:
+    \begin{itemize}
+        \item \textbf{Vốn gốc tích lũy định kỳ (Tăng trưởng tuyến tính):} Số tiền bạn bỏ ra tích lũy mỗi tháng/mỗi năm.
+        \item \textbf{Lợi nhuận tái đầu tư (Tăng trưởng lũy thừa):} Tiền lãi đẻ ra lãi, phần này sẽ tăng tốc khủng khiếp ở giai đoạn sau.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Một số khái niệm về tiền tệ, lãi suất}
+\begin{itemize}
+    \item \textbf{Khái niệm tiền tệ:} Tiền tệ là phương tiện trao đổi hàng hóa và dịch vụ được chấp nhận thanh toán trong một khu vực nhất định hoặc giữa một nhóm người cụ thể. Bản thân tiền tệ không thực sự có giá trị mà thay vào đó chúng có được giá trị từ sự chấp nhận chung từ mọi người ở một khu vực nhất định hoặc giữa một nhóm người cụ thể trong thanh toán để đổi lấy hàng hóa, dịch vụ và hoàn trả các khoản nợ.
+    
+    $\Rightarrow$ Tiền tệ là vật trung gian môi giới trong trao đổi hàng hóa, dịch vụ và là phương tiện giúp cho quá trình trao đổi được thực hiện dễ dàng hơn.
+    
+    \item \textbf{Bản chất của tiền tệ} được thể hiện rõ qua hai thuộc tính sau:
+    \begin{itemize}
+        \item \textit{Giá trị sử dụng của tiền tệ} thường được hiểu là khả năng thỏa mãn nhu cầu trao đổi của xã hội, nhu cầu sử dụng làm vật trung gian trong trao đổi. Giá trị sử dụng của một loại tiền tệ là do xã hội quy định.
+        \item \textit{Giá trị tiền tệ} thường được hiểu là khả năng đổi được nhiều hay ít hàng hóa trong trao đổi.
+    \end{itemize}
+    \item Trong mỗi quốc gia, tiền tệ có bốn chức năng là: phương tiện trao đổi; phương tiện đo lường và tính toán giá trị; phương tiện thanh toán; phương tiện tích lũy.
+    \item \textbf{Khái niệm lãi suất:} Lãi suất là tỉ lệ phần trăm của tiền vốn gửi vào ngân hàng mà ngân hàng có trách nhiệm phải trả cho người gửi tiền trong một khoảng thời gian đã xác định, thông thường được tính theo năm.
+\end{itemize}
+
+\subsection{Cách tính lãi suất}
+\begin{itemize}
+    \item \textbf{Trường hợp 1:} Nếu một khoản tiền gốc $A$ được gửi tiết kiệm (theo thể thức lãi kép) với lãi suất $r$ mỗi kỳ ($r$ được biểu thị dưới dạng số thập phân) thì tổng số tiền $S$ nhận được (cả vốn lẫn lãi) sau $n$ kỳ gửi cho bởi công thức lãi kép sau:
+    \[
+    S = A(1 + r)^n
+    \]
+    Trong đó: $A$: số tiền gốc; $r$: lãi suất mỗi kỳ (\%); $n$: số kỳ hạn (tháng/năm).
+
+    \item \textbf{Trường hợp 2:} Nếu một khoản tiền gốc $A$ được gửi tiết kiệm (theo thể thức lãi kép) với lãi suất hàng năm $r$ ($r$ được biểu thị dưới dạng số thập phân), được tính lãi $k$ lần trong một năm, thì tổng số tiền $S$ nhận được (cả vốn lẫn lãi) sau $n$ kỳ gửi cho bởi công thức lãi kép sau:
+    \[
+    S = A(1 + r/k)^n
+    \]
+    Trong đó: $A$: số tiền gốc; $r$: lãi suất mỗi kỳ (\%); $n$: số kỳ hạn (tháng/năm); $k$: lần trong một năm.
+\end{itemize}
+
+\subsection{Một số bài toán thực tế}
+
+\paragraph{Bài 1:} Chú Việt gửi vào ngân hàng 10 triệu đồng với lãi kép 5\%/năm. Tính số tiền cả gốc lẫn lãi chú Việt nhận được sau khi gửi ngân hàng 10 năm (gần với số nào nhất)?
+
+Số tiền cả gốc lẫn lãi nhận được sau 10 năm với lãi kép 5\%/năm là:
+\[
+S_{10} = 10 \cdot \left(1 + \frac{5}{100}\right)^{10} \approx 16{,}28894627 \text{ triệu đồng}.
+\]
+
+\paragraph{Bài 2:} Bạn An gửi tiết kiệm một số tiền ban đầu là 1000000 đồng với lãi suất 0,58\%/tháng (không kỳ hạn). Hỏi bạn An phải gửi bao nhiêu tháng thì được cả vốn lẫn lãi bằng hoặc vượt quá 1300000 đồng?
+
+Áp dụng công thức ta có số kỳ hạn là:
+\[
+n = \log_{1{,}0058} \left(\frac{1300000}{1000000}\right) \approx 45{,}3662737 \text{ (tháng)}.
+\]
+Nên để nhận được số tiền cả vốn lẫn lãi bằng hoặc vượt quá 1300000 đồng thì bạn An phải gửi ít nhất là 46 tháng.
+
+\paragraph{Bài 3:} Lãi suất của tiền gửi tiết kiệm của một số ngân hàng thời gian vừa qua liên tục thay đổi. Bạn Châu gửi số tiền ban đầu là 5 triệu đồng với lãi suất 0,7\%/tháng chưa đầy một năm, thì lãi suất tăng lên 1,15\%/tháng trong nửa năm tiếp theo và bạn Châu tiếp tục gửi; sau nửa năm đó lãi suất giảm xuống còn 0,9\%/tháng, bạn Châu tiếp tục gửi thêm một số tháng tròn nữa, khi rút tiền bạn Châu được cả vốn lẫn lãi là 5 747 478,359 đồng (chưa làm tròn). Hỏi bạn Châu đã gửi tiền tiết kiệm trong bao nhiêu tháng?
+
+Gọi $X, Y$ ($X, Y \in \mathbb{Z}^+; X, Y \le 12$) lần lượt là số tháng bạn Châu đã gửi với lãi suất 0,7\%/tháng và 0,9\%/tháng. Theo công thức lãi kép, ta có số tiền bạn Châu thu được cuối cùng là:
+\[
+5 \cdot 10^6 \cdot 1{,}007^X \cdot 1{,}0115^6 \cdot 1{,}009^Y = 5747478{,}359
+\]
+Kết hợp điều kiện $X$ và $Y$ nguyên dương ta thấy $X = 5$ và $Y = 4$ thỏa mãn. (Nhập vào máy tính nhập hàm số cho giá trị $X$ chạy từ 1 đến 10 với STEP 1. Nhìn vào bảng kết quả ta được cặp số nguyên là $X = 5; Y = 4$).
+
+Vậy bạn Châu đã gửi tiền tiết kiệm trong: $5 + 6 + 4 = 15$ tháng.
+
+\paragraph{Bài 4:} Bà Mai gửi tiết kiệm ngân hàng Vietcombank số tiền 50 triệu đồng với lãi suất 0,79\% một tháng, theo phương thức lãi kép. Tính số tiền cả vốn lẫn lãi bà Mai nhận được sau 2 năm? (làm tròn đến hàng nghìn)
+
+Đây là bài toán lãi kép với chu kỳ là một tháng, ta áp dụng công thức $A(1+r)^n$ với $A = 50$ triệu đồng, $r\% = 0{,}79\%$ và $n = 2 \cdot 12 = 24$ tháng.
+Ta được: $S = 50 \cdot (1 + 0{,}0079)^{24} \approx 60{,}393$ triệu đồng.
+
+\paragraph{Bài 5:} Một khách hàng gửi ngân hàng 20 triệu đồng, kỳ hạn 3 tháng, với lãi suất 0,65\% một tháng theo phương thức lãi kép. Hỏi sau bao lâu vị khách này mới có số tiền lãi nhiều hơn số tiền gốc ban đầu gửi ngân hàng? Giả sử người đó không rút lãi ở tất cả các định kỳ.
+
+Lãi suất theo kỳ hạn 3 tháng là $3 \cdot 0{,}65\% = 1{,}95\%$.
+Gọi $n$ là số kỳ hạn cần tìm.
+Đến tháng thứ $n$ số tiền người đó có (kể cả gốc lẫn lãi) là: $S_n = 20 \cdot (1 + 0{,}0195)^n$ (triệu đồng).
+Do số tiền gốc là 20 triệu đồng nên số tiền lãi có được khi đó là:
+\[
+20 \cdot (1 + 0{,}0195)^n - 20 \text{ (triệu đồng)}.
+\]
+Theo giả thiết ta có $n$ là số tự nhiên nhỏ nhất thỏa mãn:
+\[
+20 \cdot (1 + 0{,}0195)^n - 20 > 20
+\]
+Giải ra ta được, $n = 36$ chu kỳ, một chu kỳ là 3 tháng, nên thời gian cần tìm là $36 \cdot 3 = 108$ tháng, tức là 9 năm.
+
+\paragraph{Giả lập bài toán Tích sản thực tế:}
+\begin{itemize}
+    \item Số tiền tích sản: 5.000.000 VND / tháng (tương đương 60.000.000 VND / năm).
+    \item Hiệu suất đầu tư kỳ vọng: 10\% / năm (mức trung bình dài hạn của các chứng chỉ quỹ VN30 hoặc cổ phiếu bluechip).
+    \item Thời gian: 30 năm.
+\end{itemize}
+
+Hãy xem sự phân tách giữa Tổng vốn gốc bạn tự bỏ ra và Tổng tài sản bạn thực nhận qua bảng số liệu sau:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{cccc}
+\toprule
+\textbf{Số năm tích sản} & \textbf{Tổng vốn gốc đã bỏ ra (VND)} & \textbf{Tổng tài sản tích lũy được (VND)} & \textbf{Phần tiền do Lãi kép sinh ra (VND)} \\
+\midrule
+5 năm & 300.000.000 & 402.630.000 & 102.630.000 \\
+10 năm & 600.000.000 & 1.046.210.000 & 446.210.000 \\
+20 năm & 1.200.000.000 & 3.801.020.000 & 2.601.020.000 \\
+30 năm & 1.800.000.000 & 11.047.340.000 & 9.247.340.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{3 Giai đoạn Tâm lý \& Tăng trưởng của Tích sản:}
+Nếu nhìn vào biểu đồ trên, bạn sẽ thấy lộ trình tích sản đi qua 3 giai đoạn rất rõ ràng:
+\begin{itemize}
+    \item \textbf{Giai đoạn 1: Bẫy nản lòng (Năm 1 - Năm 5):} Lúc này, tài sản tăng chủ yếu bằng "tiền thịt" của bạn bỏ vào. Tiền lãi sinh ra chưa đáng là bao so với công sức tiết kiệm. Đa số mọi người bỏ cuộc ở giai đoạn này vì thấy tài sản tăng chậm.
+    \item \textbf{Giai đoạn 2: Điểm giao thoa (Năm 10 - Năm 15):} Đây là lúc tiền lãi sinh ra mỗi năm bắt đầu bằng hoặc vượt qua số tiền gốc bạn nộp vào hàng năm. Tài sản bắt đầu tăng tốc rõ rệt.
+    \item \textbf{Giai đoạn 3: Bùng nổ lũy thừa (Sau năm 20):} Hiệu ứng quả cầu tuyết xuất hiện. Cho dù bạn ngừng bỏ thêm tiền gốc, tài sản vẫn tự sinh sôi với tốc độ chóng mặt nhờ quy mô vốn đã quá lớn. Phần lớn tài sản khổng lồ (hơn 9 tỷ tiền lãi ở ví dụ trên) chỉ thực sự xuất hiện trong 10 năm cuối cùng này.
+\end{itemize}
+
+\paragraph{Các "Hố đen" làm triệt tiêu đà tăng trưởng tích sản:}
+Để hàm lũy thừa hoạt động hoàn hảo, bạn cần tránh các bẫy chi phí sau:
+\begin{itemize}
+    \item \textbf{Hội chứng rút gốc giữa chừng:} Mỗi lần bạn rút tiền ra để mua xe, đổi điện thoại, bạn đã tự tay "reset" số mũ $n$ của hàm lũy thừa về lại bằng 0. Quá trình lãi kép phải chạy lại từ đầu.
+    \item \textbf{Chi phí ẩn và Thuế:} Đầu tư vào các kênh có phí quản lý quá cao hoặc lướt sóng liên tục chịu thuế thu nhập sẽ bào mòn lợi nhuận. Phí quản lý quỹ 2\%/năm nghe có vẻ nhỏ, nhưng trong 30 năm nó có thể làm giảm tổng tài sản của bạn tới 20-30\%.
+    \item \textbf{Không tái đầu tư cổ tức:} Nếu bạn nhận cổ tức bằng tiền mặt và chi tiêu hết thay vì dùng nó để mua thêm cổ phiếu, bạn đã cắt đứt một nhánh quan trọng của dòng tăng trưởng lũy thừa.
+\end{itemize}
+
+\section{Suy giảm tài sản (lạm phát, khấu trừ)}
+
+\subsection{Một số khái niệm về lạm phát, cách tính chỉ số lạm phát}
+\begin{itemize}
+    \item \textbf{Khái niệm lạm phát:} Lạm phát là hiện tượng tăng giá liên tục của hàng hóa, dịch vụ dẫn đến giảm sức mua của đồng tiền. Có thể hiểu một cách đơn giản, khi lạm phát xảy ra, với cùng một số tiền người ta chỉ có thể mua được một số lượng hàng hóa, dịch vụ ít hơn so với trước đây. Do đó, lạm phát phản ánh sự suy giảm sức mua trên một đơn vị tiền tệ.
+    \item \textbf{Chỉ số lạm phát:} Để đo lường mức độ lạm phát của một thời kỳ, người ta đưa ra chỉ số lạm phát của thời kỳ đó. Sau đây, ta sẽ tìm hiểu cách tính chỉ số lạm phát của một thời kỳ.
+    \begin{itemize}
+        \item Thông qua việc điều tra, các nhà nghiên cứu sẽ xác định những mặt hàng và dịch vụ tiêu biểu mà người tiêu dùng điển hình sẽ mua ở thời điểm $t$. Những mặt hàng và dịch vụ đó được gọi là giỏ hàng hóa và dịch vụ ở thời điểm đó.
+        \item Chi phí để mua giỏ hàng hóa, dịch vụ ở thời điểm $t$ được tính theo nguyên tắc sau:
+        \begin{itemize}
+            \item Bước 1: Thống kê giá cả của các mặt hàng, dịch vụ trong giỏ hàng hóa đã chọn thời điểm $t$.
+            \item Bước 2: Tính toán chi phí để mua giỏ hàng hóa, dịch vụ đã chọn ở bước 1 tại thời điểm $t$. Việc tính toán này được thực hiện bằng cách lấy giá cả nhân với số lượng mỗi mặt hàng, dịch vụ rồi cộng kết quả lại.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Ví dụ:} Giả định năm 2022, giỏ hàng hóa và dịch vụ được chọn gồm cam, quýt, cắt tóc nam với giá cả như sau: 1500 đồng/quả cam, 3000 đồng/quả quýt, 50000 đồng/lần cắt tóc nam. Giả sử ta mua 50 quả cam, 100 quả quýt, cắt tóc 8 lần. Hãy tính chi phí để mua giỏ hàng hóa, dịch vụ tại thời điểm năm 2022.
+
+\textit{Giải:} Chi phí để mua giỏ hàng hóa, dịch vụ đó (với số lượng mỗi mặt hàng, dịch vụ như đã nêu) tại thời điểm năm 2022 là:
+\[
+50 \cdot 1500 + 100 \cdot 3000 + 8 \cdot 50000 = 775000 \text{ (đồng)}
+\]
+
+Chỉ số giá tiêu dùng (hay CPI) ở thời điểm $t$ là chỉ số được tính từ giá của giỏ hàng hóa và dịch vụ mà một người tiêu dùng mua ở thời điểm đó.
+
+\paragraph{Việc tính toán chỉ số CPI ở thời điểm $t$ sẽ được thực hiện thông qua các bước sau:}
+\begin{itemize}
+    \item Bước 1: Cố định giỏ hàng hóa ở thời điểm $t$ và thống kê giá cả các mặt hàng, dịch vụ trong giỏ hàng hóa đã được chọn tại thời điểm đó. Cố định số lượng mỗi mặt hàng, dịch vụ được mua (hoặc sử dụng) trong giỏ hàng hóa đã chọn tại thời điểm đó.
+    \item Bước 2: Tính toán chi phí để mua giỏ hàng hóa, dịch vụ đã chọn ở bước 1 tại thời điểm $t$.
+    \item Bước 3: Tính toán chi phí để mua giỏ hàng hóa, dịch vụ đã chọn ở bước 2 tại thời điểm cơ sở. Lưu ý rằng thời điểm cơ sở sẽ được chọn tùy vào từng quốc gia cụ thể. Chẳng hạn, Việt Nam chọn năm 2010 là thời điểm cơ sở.
+    \item Bước 4: Tính chỉ số CPI ở thời điểm $t$ theo công thức sau:
+    \[
+    \text{CPI ở thời điểm } t = \left(\frac{\text{Chi phí mua ghh,dv ở thời điểm } t}{\text{Chi phí để mua ghh, dv ở thời điểm cơ sở}}\right) \cdot 100
+    \]
+\end{itemize}
+
+\paragraph{Ví dụ:} Giả sử người ta giữ nguyên các giả định năm 2022 như trong ví dụ 6. Giả sử năm 2010, giá cả của giỏ hàng hóa là: 1000 đồng/quả cam, 2000 đồng/quả quýt, 35000 đồng/lần cắt tóc nam. Hãy tính chỉ số CPI của giỏ hàng hóa, dịch vụ này ở năm 2022.
+
+\textit{Giải:} Chi phí để mua giỏ hàng hóa, dịch vụ đó tại thời điểm 2010 là:
+\[
+50 \cdot 1000 + 100 \cdot 2000 + 8 \cdot 35000 = 530000 \text{ (đồng)}
+\]
+Vậy chỉ số CPI của giỏ hàng hóa, dịch vụ này ở năm 2022 là:
+\[
+(775000 / 530000) \cdot 100 \approx 146{,}2
+\]
+
+\subsection{Công thức tính chỉ số lạm phát}
+\begin{itemize}
+    \item Công thức tính chỉ số lạm phát (tỉ lệ lạm phát) tại thời điểm $t$:
+    \[
+    \text{Chỉ số lạm phát ở thời điểm } t = \frac{\text{CPI ở thời điểm } t - \text{CPI ở thời điểm } (t-1)}{\text{CPI ở thời điểm } (t-1)} \cdot 100
+    \]
+    \item Lãi suất danh nghĩa là loại lãi suất biểu thị cho sự tăng trưởng của tiền sau một thời gian nhất định, thông thường là một năm. Khi gửi tiết kiệm ngân hàng, lãi suất danh nghĩa sẽ được ghi rõ trên sổ tiết kiệm.
+    
+    Lãi suất thực tế (còn gọi là lãi suất hiệu quả) là loại lãi suất thực thu được sau khi trừ đi tỉ lệ lạm phát. Vì thế, ta có thể sử dụng công thức sau để tính lãi suất thực tế:
+    \[
+    \text{Lãi suất thực tế} = \text{Lãi suất danh nghĩa} - \text{Chỉ số lạm phát}
+    \]
+    \item \textbf{Ví dụ 9:} Một ngân hàng thông báo lãi suất tiền gửi vào tháng 1/2021 là 5,6\%/năm. Chỉ số lạm phát của Việt Nam năm 2021 là 1,84\%. Tính lãi suất thực tế (theo kỳ hạn 1 năm) mà người gửi thực thu được ở năm 2021.
+    
+    \textit{Giải:} Lãi suất thực tế (theo kỳ hạn 1 năm) mà người gửi thực thu được ở năm 2021 là: $5{,}6\% - 1{,}84\% = 3{,}76\%$.
+    
+    \item \textbf{Chú ý:} Khi chỉ số lạm phát tăng cao, nếu muốn cho lãi suất thực tế là ổn định và thực dương thì lãi suất danh nghĩa phải tăng lên theo chỉ số lạm phát. Việc tăng lãi suất danh nghĩa sẽ dẫn đến hậu quả là các doanh nghiệp phải tăng chi phí sản xuất, giảm sức mua hàng hóa, giảm sức cạnh tranh của nền kinh tế và khó tiếp cận đến các nguồn vốn phục vụ cho sản xuất.
+    
+    \item \textbf{Tính tiền lương thực tế:}
+    
+    \textit{? Câu hỏi:} Anh Bình ký hợp đồng lao động với một công ty và luôn hoàn thành công việc. Hằng tháng công ty trả cho anh Bình một khoản tiền. Khoản tiền đó được gọi là gì?
+    
+    Tiền lương (còn gọi là lương) là số tiền do người sử dụng lao động trả cho người lao động khi người lao động đã hoàn thành công việc theo thỏa thuận trong hợp đồng lao động. Tiền lương thường được tính bằng số tiền được trả cho công nhân hoặc nhân viên trong một đơn vị thời gian cụ thể, ví dụ như một giờ làm việc hay một tháng làm việc (Nguồn: Bộ luật lao động năm 2019 số 45/2019/QH14). Dựa theo giá trị thực của số tiền thu được, tiền lương được chia làm hai loại:
+    \begin{itemize}
+        \item \textbf{Tiền lương danh nghĩa} là mức lương mà người lao động được cam kết nhận trong một thỏa thuận lao động, thường được ghi nhận trong hợp đồng lao động hoặc được thông báo và trao đổi công khai. Tiền lương danh nghĩa không được điều chỉnh theo chỉ số lạm phát hoặc biến động kinh tế.
+        \item \textbf{Tiền lương thực tế} là mức lương thực sự mà người lao động nhận được và có thể sử dụng để mua hàng hóa và dịch vụ. Tiền lương thực tế có tính đến sự ảnh hưởng của mức giá chung và mức độ lạm phát trong nền kinh tế.
+    \end{itemize}
+    
+    Để tính toán tiền lương thực tế, người ta có thể sử dụng công thức sau:
+    \[
+    \text{Tiền lương thực tế} = (100\% - \text{Chỉ số lạm phát}) \times \text{Tiền lương danh nghĩa}
+    \]
+    \textit{Chú ý:} Khi lạm phát tăng lên mà tiền lương danh nghĩa không thay đổi thì tiền lương thực tế của người lao động giảm xuống. Vì thế, chống lạm phát tăng cao luôn luôn là phương hướng chủ đạo trong điều hành và giữ ổn định nền kinh tế vĩ mô của chính phủ mỗi quốc gia trên thế giới.
+\end{itemize}
+
+\subsection{Bài toán thực tế}
+\paragraph{Minh họa: Sự phân hóa tài sản khi có Lạm phát tác động}
+Hãy cùng xem hành trình tích sản 5.000.000 VND / tháng trong 30 năm (Hiệu suất danh nghĩa 10\%/năm) sẽ thay đổi thế nào dưới tác động của các mức lạm phát khác nhau. Khi lạm phát cao, Central Banks có xu hướng tăng lãi suất thắt chặt vĩ mô, làm biến động lợi nhuận thực tế của các loại tài sản rủi ro:
+\begin{itemize}
+    \item \textbf{Kịch bản 1 (Lý tưởng - Không lạm phát):} Lợi nhuận thực nhận giữ nguyên 10\%. Tổng tài sản đạt 11,04 Tỷ VND.
+    \item \textbf{Kịch bản 2 (Lạm phát trung bình 4\%):} Lợi nhuận thực tế giảm còn 6\%. Tổng tài sản thực tế chỉ còn tương đương 5,02 Tỷ VND theo sức mua hiện tại.
+    \item \textbf{Kịch bản 3 (Lạm phát cao 6\%):} Lợi nhuận thực tế chỉ còn 4\%. Tổng tài sản thực tế bốc hơi mạnh, chỉ còn tương đương 3,47 Tỷ VND.
+\end{itemize}
+
+\paragraph{3 Nguyên tắc Tích sản trong thời kỳ Lạm phát:}
+\begin{itemize}
+    \item \textbf{Tập trung vào "Lợi nhuận thực tế":} Luôn lấy tỷ suất sinh lời của kênh đầu tư trừ đi lạm phát hiện tại. Bất kỳ kênh đầu tư nào có lợi nhuận thấp hơn tỷ lệ lạm phát đều đang làm bạn nghèo đi một cách hợp pháp.
+    \item \textbf{Tích sản đều đặn (DCA):} Lạm phát thường đi kèm với biến động thị trường lớn. Việc mua tích sản định kỳ hàng tháng giúp bạn mua được nhiều chứng chỉ quỹ/cổ phiếu hơn khi thị trường sụt giảm, tối ưu hóa giá vốn dài hạn.
+    \item \textbf{Lựa chọn doanh nghiệp có "Quyền lực định giá":} Khi đầu tư cổ phiếu, hãy chọn các doanh nghiệp ngành thiết yếu (Điện, nước, tiêu dùng nhanh, công nghệ) – những nơi có khả năng áp đặt việc tăng giá lên người tiêu dùng mà không sợ mất khách hàng.
+\end{itemize}
+
+\section{Đầu tư tài chính. Lập kế hoạch tài chính cá nhân}
+
+\subsection{Một số vấn đề về đầu tư tài chính}
+\begin{itemize}
+    \item Đầu tư tài chính là bỏ tiền của cá nhân, tổ chức vào một doanh nghiệp hay một hoạt động kinh doanh để có được lợi nhuận hoặc để tiến hành hoạt động kinh doanh đó.
+    \item \textbf{Sự khác biệt giữa tiết kiệm và đầu tư:}
+    Tiết kiệm và đầu tư là nền tảng cho các hoạt động về tài chính. Ta có thể hiểu như sau:
+    \begin{itemize}
+        \item Tiết kiệm là việc lưu giữ giá trị, biến sức mua hiện tại thành sức mua trong tương lai.
+        \item Đầu tư là bỏ tiền của cá nhân, tổ chức vào một doanh nghiệp hay một hoạt động kinh doanh.
+    \end{itemize}
+    \item \textbf{Chứng khoán} là chứng từ có giá trị dài hạn xác nhận sở hữu hợp pháp của người sở hữu (gọi chung là nhà đầu tư) với tài sản của doanh nghiệp hoặc tổ chức phát hành.
+    \item \textbf{Thị trường chứng khoán} là nơi diễn ra các giao dịch mua bán trao đổi các loại chứng khoán. Chứng khoán là hàng hóa của thị trường chứng khoán.
+    \item Thị trường chứng khoán tại Việt Nam có những vai trò quan trọng sau:
+    \begin{itemize}
+        \item Giúp tăng cường tích tụ, tập trung vốn trung và dài hạn cho nền kinh tế, giảm áp lực cho hệ thống ngân hàng.
+        \item Giúp cho hoạt động của các doanh nghiệp niêm yết trên thị trường chứng khoán được cải thiện.
+        \item Giảm chi phí vốn cho nền kinh tế.
+        \item Giúp cho phân phối vốn hiệu quả hơn.
+        \item Tăng các công cụ mới cho thị trường tài chính.
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Đầu tư chứng khoán thông qua mua bán cổ phiếu:}
+\begin{itemize}
+    \item Đầu tư chứng khoán là đầu tư vào các sản phẩm trên thị trường chứng khoán, cụ thể là cổ phiếu, trái phiếu, ...
+    \item Cổ phiếu là một loại chứng khoán (được coi là tài sản) và cũng là đối tượng giao dịch trên thị trường chứng khoán.
+    \item Giá trung bình của cổ phiếu trong một ngày giao dịch được tính bằng trung bình cộng của giá cao nhất và giá thấp nhất của cổ phiếu trong ngày giao dịch đó.
+    \item Cổ tức là khoản lợi nhuận ròng được trả cho mỗi cổ phần bằng tiền mặt hoặc bằng tài sản khác.
+\end{itemize}
+
+\paragraph{Chú ý:}
+\begin{itemize}
+    \item Bản chất của đầu tư chứng khoán là mua sản phẩm với giá thấp và bán lại với giá cao, từ đó nhận được lợi nhuận đầu tư.
+    \item Đầu tư chứng khoán tuy cần bỏ nhiều công sức để học hỏi, nhưng là một kỹ năng cực kỳ hữu ích, vì nó cho phép nhà đầu tư tự gầy dựng quỹ tích lũy lâu dài, đa dạng hóa nguồn thu nhập, cập nhật hiểu biết về các vấn đề tài chính kinh tế,...
+    \item Có hai hình thức chi trả cổ tức phổ biến nhất, đó là: trả bằng tiền và trả bằng cổ phiếu.
+    \begin{itemize}
+        \item Trả cổ tức bằng tiền là việc doanh nghiệp trả cổ tức bằng tiền trực tiếp vào tài khoản chứng khoán cho cổ đông.
+        \item Trả cổ tức bằng cổ phiếu.
+    \end{itemize}
+    \item \textbf{Chú ý:} Tại thị trường chứng khoán Việt Nam, khi một doanh nghiệp công bố tỉ lệ trả cổ tức bằng tiền, doanh nghiệp đó dựa trên mệnh giá cổ phiếu, tức là 10 000 đồng/cổ phiếu.
+\end{itemize}
+
+\paragraph{Ví dụ 4:} Cô Hạnh dự định đầu tư vào chứng khoán của doanh nghiệp X. Mỗi cổ phiếu của doanh nghiệp đó có giá trung bình tại một số thời điểm được thống kê trong Bảng 3:
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Thời điểm} & 12/4/2020 & 12/4/2021 & 12/4/2022 & 12/4/2023 \\
+\midrule
+\textbf{Giá trung bình (đồng)} & 70 600 & 98 900 & 82 400 & 88 300 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Vào ngày 12/4/2020, cô Hạnh mua 10 000 cổ phiếu của doanh nghiệp X. Vào ngày 12/4/2021, cô Hạnh tiếp tục mua 10 000 cổ phiếu của doanh nghiệp X.
+\begin{enumerate}[label=\alph*)]
+    \item Số tiền cô Hạnh đã đầu tư để mua 20 000 cổ phiếu nói trên là bao nhiêu?
+    \item Nếu cô Hạnh bán toàn bộ 20 000 cổ phiếu của doanh nghiệp X vào thời điểm 12/4/2022 thì cô Hạnh sẽ bị lỗ bao nhiêu tiền? Tính số tiền lãi cô Hạnh thu được nếu bán toàn bộ 20 000 cổ phiếu của doanh nghiệp X vào thời điểm 12/4/2023.
+    \item Giả sử cô Hạnh đem số tiền đầu tư chứng khoán gửi tiết kiệm theo hình thức lãi kép với kỳ hạn 12 tháng: 12/4/2020 lãi suất là 6,6\%/năm; 12/4/2021 là 5,5\%/năm; 12/4/2022 là 5,5\%/năm. Hãy tính số tiền thu được và so sánh với đầu tư chứng khoán.
+\end{enumerate}
+
+\textit{Giải:}
+\begin{enumerate}[label=\alph*)]
+    \item Số tiền cô Hạnh đã đầu tư ngày 12/4/2020: $S_1 = 70 600 \times 10 000 = 706 000 000$ (đồng).\\
+    Số tiền đầu tư ngày 12/4/2021: $S_2 = 98 900 \times 10 000 = 989 000 000$ (đồng).\\
+    Tổng số tiền cô Hạnh đã đầu tư để mua 20 000 cổ phiếu: $S = S_1 + S_2 = 1 695 000 000$ (đồng).
+    \item Số tiền cô Hạnh thu được vào thời điểm 12/4/2022 là: $82 400 \times 20 000 = 1 648 000 000$ (đồng). Cô bị lỗ: $1 695 000 000 - 1 648 000 000 = 47 000 000$ (đồng).\\
+    Số tiền lãi thu được vào thời điểm 12/4/2023: $88 300 \times 20 000 - 1 695 000 000 = 71 000 000$ (đồng).
+    \item Nếu gửi tiết kiệm số tiền $S_1$ đến ngày 12/4/2021 nhận về: $706 000 000 \times (1 + 6{,}6\%) = 752 596 000$ (đồng). Gửi tiếp số tiền này cộng thêm khoản $S_2$ đến ngày 12/4/2022 nhận về: $(752 596 000 + 989 000 000) \times (1 + 5{,}5\%) = 1 837 383 780$ (đồng). Lãi nhận được: 142 384 000 đồng.\\
+    Đến ngày 12/4/2023, tổng tiền nhận về: $1 837 383 780 \times (1 + 5{,}5\%) = 1 938 439 887{,}9$ (đồng). Tiền lãi nhận được: 243 440 000 đồng.\\
+    \textbf{Nhận xét:} Đầu tư chứng khoán là một công việc phức tạp và có nhiều rủi ro.
+\end{enumerate}
+
+\subsection{Giải quyết một số vấn đề về đầu tư tài chính}
+Trong đầu tư tài chính, lợi nhuận luôn gắn liền với rủi ro. Thông thường, lợi nhuận càng cao rủi ro càng lớn. Vì vậy, một trong những công việc vô cùng quan trọng khi tiến hành đầu tư là phải đánh giá được rủi ro và có biện pháp để kiểm soát rủi ro.
+
+\paragraph{Khung nguyên tắc 3 bước giải quyết mọi bài toán đầu tư thực tế:}
+Khi đối mặt với một bài toán tài chính cá nhân hoặc doanh nghiệp, bạn hãy áp dụng quy trình giải quyết phối hợp sau:
+\begin{itemize}
+    \item \textbf{Xác định mục tiêu theo SMART:} Định lượng rõ số vốn, thời gian đầu tư ($n$) và lợi nhuận danh nghĩa mục tiêu.
+    \item \textbf{Lọc nhiễu bằng Lạm phát:} Luôn tính toán lại lợi nhuận thực tế ($r_{\text{thực}} = R - I$) để đảm bảo tài sản thực sự tăng trưởng về mặt sức mua chứ không phải tăng trưởng "ảo" trên con số.
+    \item \textbf{Phân bổ theo quy tắc bảo vệ (50/20/30):} Trích tối đa (20\%) thu nhập cho quỹ đầu tư tài chính. Trong (20\%) này, tiếp tục chia nhỏ: một phần vào kênh an toàn (gửi tiết kiệm) và một phần vào kênh rủi ro tăng trưởng theo hàm lũy thừa (chứng khoán, chứng chỉ quỹ) dựa trên kết quả phân tích chỉ số Kỳ vọng ($E(X)$) và Phương sai ($V(X)$).
+\end{itemize}
+
+\subsection*{3.3 Lập kế hoạch tài chính cá nhân}
+- Việc lập một bản kế hoạch tài chính cá nhân về cơ bản bao gồm các bước sau:
+\begin{description}
+    \item[Bước 1.] Xác định mục tiêu và thời hạn của kế hoạch tài chính cá nhân.
+    \item[Bước 2.] Xác định tình hình tài chính hiện tại, thu và chi thường xuyên của cá nhân.
+    \item[Bước 3.] Thiết lập quy tắc thu chi cá nhân cụ thể.
+    \item[Bước 4.] Tuân thủ kế hoạch tài chính cá nhân.
+\end{description}
+
+\subsubsection*{1. Nguyên tắc SMART}
+Để thực hiện Bước 1 có hiệu quả, người ta thường áp dụng nguyên tắc SMART. Nguyên tắc SMART được viết tắt từ các chữ cái đầu tiên của 5 tiêu chí sau đây:
+\begin{itemize}
+    \item \textbf{S -- Specific:} Cụ thể.\\
+    Một mục tiêu thông minh đầu tiên phải được xác định một cách cụ thể, rõ ràng. Mục tiêu càng cụ thể và rõ ràng, chứng tỏ khả năng đạt được càng cao.
+    \item \textbf{M -- Measurable:} Đo lường, định lượng được.\\
+    Nghĩa là mục tiêu phải được gắn liền với những con số, có thể cân, đo, đong, đếm được. Chúng ta biết được chính xác những gì mình cần đạt là bao nhiêu.
+    \item \textbf{A -- Attainable:} Có thể hoàn thành được, khả thi.\\
+    Tính khả thi cũng là một yếu tố rất quan trọng khi ta đưa ra một mục tiêu. Nghĩa là chúng ta phải suy nghĩ về khả năng của bản thân trước khi đề ra một mục tiêu để tránh tình trạng bỏ cuộc giữa chừng.
+    \item \textbf{R -- Relevant:} Thực tế.\\
+    Cần tính toán xem khả năng, vật chất, thời gian, nguồn hỗ trợ, ... có cho phép thực hiện được mục tiêu không.
+    \item \textbf{T -- Timebased:} Đặt ra khung thời gian thực hiện.\\
+    Khung thời gian thực hiện giúp chúng ta biết được đang đi đến đâu trong tiến trình triển khai công việc và kịp thời chấn chỉnh mức độ phấn đấu.
+\end{itemize}
+
+\subsubsection*{2. Phương pháp chi tiêu 50/20/30}
+Để thực hiện Bước 3 có hiệu quả, người ta thường áp dụng phương pháp chi tiêu 50/20/30 như sau:
+\begin{itemize}
+    \item Sử dụng đến 50\% nguồn tài chính cá nhân để đáp ứng những nhu cầu thiết yếu trong cuộc sống như: ăn, ở, đi lại, hoá đơn tiện ích, ... Nếu một người chi tiêu vượt quá ngưỡng đó thì người đó có thể đang bị thâm hụt ngân sách và cần điều chỉnh lại quá trình chi tiêu sao cho khoản chi tiêu thiết yếu nằm trong mức cho phép.
+    \item Sử dụng đến 20\% nguồn tài chính cá nhân cho mục tiêu tài chính cá nhân như: trả nợ, tiết kiệm, đầu tư. Đây là những khoản nằm trong mục đầu tư và tích luỹ cho tương lai. Những khoản này sẽ giúp mỗi người đảm bảo tài chính cá nhân trong tương lai. Nhưng nếu chi tiêu ở khoản này quá lớn thì rủi ro cao và những chi tiêu cần thiết cho hiện tại cũng sẽ bị ảnh hưởng. Vì vậy 20\% tổng số thu nhập cho chi tiêu vào mục này là hợp lý.
+    \item Sử dụng đến 30\% nguồn tài chính cá nhân để đáp ứng những nhu cầu chi tiêu cá nhân như: mua sắm, giải trí, du lịch, học tập, ... Khoản chi tiêu cá nhân là những khoản chi tiêu linh hoạt, nhu cầu cá nhân lại luôn là rất lớn. Vì vậy, cần tiết chế chi tiêu sao cho mục này chiếm khoảng 30\% là hợp lý nhất.
+\end{itemize}
+
+
+
+% ==================== CHƯƠNG 3 ====================
+\chapter{MÔ HÌNH HÓA THỰC TẾ VÀ CÔNG CỤ TRỰC QUAN}
+
+\paragraph{BÀI 1: Bài toán So sánh Hiệu quả Đầu tư vs Gửi tiết kiệm Lãi kép}
+\textbf{Đề bài:} Ngày 18/4/2022, cô Bình mua $10.000$ cổ phiếu với giá $21.000$ đồng/cp. Đến ngày 18/4/2023, cô bán toàn bộ số cổ phiếu đó với giá $27.000$ đồng/cp.
+\begin{enumerate}[label=\alph*)]
+    \item Tính số tiền lãi cô Bình nhận được sau khi bán.
+    \item Giả sử ngày 18/4/2022 cô gửi số tiền đầu tư đó vào ngân hàng kỳ hạn 12 tháng với lãi suất $6{,}3\%$/năm. Tính số tiền lãi tiết kiệm nhận được vào ngày 18/4/2023. Từ đó so sánh hai phương án.
+\end{enumerate}
+
+\textbf{Lời giải chi tiết:}
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Phương án đầu tư chứng khoán:}
+    \begin{itemize}
+        \item Số tiền vốn ban đầu cô Bình bỏ ra mua cổ phiếu:
+        \[
+        10.000 \times 21.000 = 210.000.000 \text{ (đồng)}
+        \]
+        \item Số tiền thu về sau khi bán cổ phiếu sau 1 năm:
+        \[
+        10.000 \times 27.000 = 270.000.000 \text{ (đồng)}
+        \]
+        \item Số tiền lãi từ đầu tư chứng khoán:
+        \[
+        270.000.000 - 210.000.000 = 60.000.000 \text{ (đồng)}
+        \]
+    \end{itemize}
+
+    \item \textbf{Phương án gửi tiết kiệm ngân hàng:}
+    \begin{itemize}
+        \item Số tiền lãi nhận được từ ngân hàng sau 1 năm (kỳ hạn 12 tháng) với số vốn $210.000.000$ đồng:
+        \[
+        T_{\text{lãi}} = 210.000.000 \times 6{,}3\% = 13.230.000 \text{ (đồng)}
+        \]
+    \end{itemize}
+\end{enumerate}
+
+\textbf{So sánh kết quả:}
+\begin{itemize}
+    \item Số tiền lãi từ đầu tư chứng khoán cao hơn gửi tiết kiệm ngân hàng:
+    \[
+    60.000.000 - 13.230.000 = 46.770.000 \text{ (đồng)}
+    \]
+    \item \textbf{Kết luận tài chính:} Trong giai đoạn này, phương án Đầu tư chứng khoán hiệu quả hơn gửi tiết kiệm, mang lại mức lợi nhuận vượt trội gấp gần 4,5 lần. Tuy nhiên, đi kèm với đó là rủi ro biến động giá cổ phiếu trên thị trường (như đã rút ra ở nhận xét lý thuyết của bài học).
+\end{itemize}
+
+
+\paragraph{BÀI 2: Phân bổ Ngân sách Gia đình}
+\textbf{Đề bài:} Gia đình anh Nam dự kiến phân bổ các khoản chi tiêu hàng tháng bao gồm: Chi cho nhu cầu thiết yếu; Chi cho tiết kiệm và đầu tư; Chi cho mua sắm cá nhân; Chi cho học tập của các con, dịch vụ y tế và chăm sóc sức khỏe. Hãy xác định tỷ lệ phần trăm hợp lý cho từng khoản mục theo quy tắc 50/20/30.
+
+\textbf{Lời giải và Biện luận Toán học:}
+\begin{itemize}
+    \item Theo lý thuyết tài chính cá nhân vĩ mô, tổng nhóm chi tiêu linh hoạt (Mua sắm + Học tập, y tế) phải nằm trong giới hạn 30\%. Dựa trên số liệu khảo sát thực tế của bài học, ngân sách được phân rã như sau:
+    \begin{itemize}
+        \item \textbf{Khoản 1:} Nhu cầu thiết yếu (Cố định): Chiếm $50\%$ tổng thu nhập.
+        \item \textbf{Khoản 2:} Tiết kiệm và đầu tư (Tích sản): Chiếm $20\%$ tổng thu nhập.
+        \item \textbf{Khoản 3:} Mua sắm cá nhân: Phân bổ $14\%$ tổng thu nhập.
+        \item \textbf{Khoản 4:} Học tập, y tế, sức khỏe: Phân bổ $16\%$ tổng thu nhập.
+    \end{itemize}
+    \item \textbf{Kiểm tra tính hợp lý:}
+    \[
+    14\% \text{ (Mua sắm)} + 16\% \text{ (Học tập, y tế)} = 30\% \text{ (Thuộc nhóm Linh hoạt)}
+    \]
+    \[
+    \text{Tổng cộng} = 50\% + 20\% + 14\% + 16\% = 100\%
+    \]
+    \item \textbf{Kết luận:} Phương án phân bổ của gia đình anh Nam hoàn toàn hợp lý và tuân thủ nghiêm ngặt mô hình 50/20/30, đảm bảo được cả hai yếu tố: an sinh hiện tại (y tế, giáo dục) và tích lũy số mũ cho tương lai.
+\end{itemize}
+
+
+\paragraph{BÀI 3: Tính Tiền lương Thực tế và Sức mua}
+\textbf{Đề bài:} Năm 2020, tiền lương của một kỹ sư là $15.000.000 \text{ VND/tháng}$. Năm 2021, tiền lương danh nghĩa tăng lên $16.200.000 \text{ VND/tháng}$. Biết tỷ lệ lạm phát của năm 2021 là $3{,}2\%$. Tính tiền lương thực tế năm 2021 của kỹ sư đó và đánh giá sức mua thay đổi thế nào so với năm 2020.
+
+\textbf{Lời giải chi tiết:}
+\begin{itemize}
+    \item \textbf{Bước 1: Xác định bản chất số liệu}
+    \begin{itemize}
+        \item Lương danh nghĩa năm 2021 ($L_{\text{dn}}$): $16.200.000 \text{ (đồng)}$
+        \item Tỷ lệ lạm phát năm 2021 ($I$): $3{,}2\% = 0{,}032$
+    \end{itemize}
+
+    \item \textbf{Bước 2: Áp dụng công thức tính Tiền lương thực tế ($L_{\text{tt}}$)}
+    \[
+    L_{\text{tt}} = \frac{L_{\text{dn}}}{1 + I} = \frac{16.200.000}{1 + 0{,}032} = \frac{16.200.000}{1{,}032} \approx 15.697.674 \text{ (VND)}
+    \]
+
+    \item \textbf{Bước 3: So sánh sức mua thực tế với năm 2020}
+    \[
+    15.697.674 - 15.000.000 = 697.674 \text{ (VND)}
+    \]
+
+    \item \textbf{Kết luận tài chính:} Mặc dù trên giấy tờ (danh nghĩa) tiền lương của kỹ sư tăng thêm $1.200.000 \text{ VND}$, nhưng do giá cả hàng hóa ngoài thị trường đã tăng lên $3{,}2\%$, nên mức tăng trưởng sức mua thực tế của lượng tiền đó chỉ tương đương $697.674 \text{ VND}$ so với năm trước.
+\end{itemize}
+% ==================== CHƯƠNG 4 ====================
+\chapter{KẾT LUẬN CHUNG}
+
+Hàm số mũ với dạng tổng quát $y = a^x$ ($a > 0, a \neq 1$) và các biến thể tăng trưởng lũy tiến là nền tảng toán học tối cao chi phối toàn bộ thế giới tài chính hiện đại. Dưới đây là các đúc kết cốt lõi:
+
+\begin{enumerate}
+    \item \textbf{Động cơ tăng trưởng tài sản (Quy luật Lãi kép):} Công thức $A = P(1+r)^n$ giúp tài sản bùng nổ theo thời gian nhờ hiệu ứng quả cầu tuyết.
+    \item \textbf{Thước đo giá trị dòng tiền (Chiết khấu \& Lạm phát):} Sử dụng số mũ âm $PV = FV \times (1+r)^{-n}$ để quy đổi dòng tiền tương lai về hiện tại và định lượng sự suy giảm sức mua do lạm phát.
+    \item \textbf{Công thức liên tục của nền kinh tế (Lãi kép liên tục):} Ứng dụng hàm số mũ cơ số $e$ ($A = P \cdot e^{rt}$) trong các mô hình tài chính cao cấp như định giá quyền chọn Black-Scholes.
+\end{enumerate}
+
+$\Rightarrow$ Muốn giàu có vững chắc, bạn phải đưa tài sản của mình vào quỹ đạo tăng trưởng của hàm số mũ (tích sản, lãi kép). Ngược lại, nếu giữ tiền mặt hoặc vay nợ trả góp sai cách, bạn sẽ bị chính hàm số mũ (lạm phát, nợ xấu) bào mòn và hủy hoại tài chính.
 
 \end{document}
